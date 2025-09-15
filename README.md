@@ -1,3 +1,32 @@
+# Project Description
+
+Access
+------------------------------------------
+The data I will use is data from Kenya Power posted on x.com (twitter), they post as soon as an interruption is about to occur, EPRA's reports, Kenya's Census data and any credible transformer related data.
+
+
+Much of the data is in image and pdf format and will thus need extraction either manually or using a tool of some kind.
+
+
+EPRA's reports are available and are where I will extract the SAIDI per month.
+
+
+The census data is in pdf format and I'm currently unsure how to extract it but will find my way.
+
+
+May use Kenya solar irradiation data
+
+
+Assess
+----------------------------------------
+Using OSMnx try to plot Kenya's population per county and subcounty, Kenya's household density per location, outages plots 
+
+
+Address
+-----------------------------
+Try and predict the SAIDI  for July 2024 to present.
+
+
 # Fynesse Template
 
 [![Tests](https://github.com/lawrennd/fynesse_template/workflows/Test/badge.svg)](https://github.com/lawrennd/fynesse_template/actions/workflows/test.yml)
