@@ -2,7 +2,9 @@
 
 Access
 ------------------------------------------
-The data I will use is data from Kenya Power posted on x.com (twitter), they post as soon as an interruption is about to occur, EPRA's reports, Kenya's Census data and any credible transformer related data.
+The data I will use is data from Kenya Power posted on x.com (twitter), they post as soon as an interruption is about to occur (images to be collected and placed in a Kenya-Power-interruptions-folder)
+
+EPRA's reports, Kenya's Census data and any credible transformer related data.
 
 
 Much of the data is in image and pdf format and will thus need extraction either manually or using a tool of some kind.
