@@ -2,6 +2,9 @@ from .config import *
 import osmnx as ox
 import matplotlib.pyplot as plt
 import math
+import os
+import requests
+from bs4 import BeautifulSoup
 
 def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
     """
@@ -99,3 +102,25 @@ def plot_city_map(place_name, latitude, longitude, box_size_km=2, poi_tags=None)
     ax.axis("off")
     plt.tight_layout()
     plt.show()
+
+
+def get_pdf_links(page):
+    url = f"{BASE_URL}?page={page}#powerschedule"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "html.parser")
+    
+    pdf_links = []
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        if href.endswith(".pdf") and "storage" in href:
+            pdf_links.append(href)
+    return pdf_links
+
+def download_pdf(url, save_dir=SAVE_DIR):
+    filename = url.split("/")[-1]
+    filepath = os.path.join(save_dir, filename)
+    if not os.path.exists(filepath):  # avoid duplicates
+        print(f"Downloading: {filename}")
+        r = requests.get(url)
+        with open(filepath, "wb") as f:
+            f.write(r.content)
