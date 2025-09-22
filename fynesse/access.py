@@ -5,11 +5,15 @@ import math
 import os
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd 
 
 BASE_URL = "https://www.kplc.co.ke/customer-support"
 SAVE_DIR = "kplc_pdfs"
 
 os.makedirs(SAVE_DIR, exist_ok=True)
+def data():# -> Union[pd.DataFrame, Any]:
+    '''returns epra_reliability_index_df and merged census_and_kplc_interruptions_data'''
+    return [pd.read_csv('https://github.com/Yuri-Njathi/impact-of-planned-vs-unplanned-power-interruptions/blob/main/data/formatted_epra_data.csv'),pd.read_csv('https://github.com/Yuri-Njathi/impact-of-planned-vs-unplanned-power-interruptions/blob/main/data/census_and_kplc_interruptions_data.csv')]
 
 def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
     """
