@@ -124,3 +124,99 @@ def download_pdf(url, save_dir=SAVE_DIR):
         r = requests.get(url)
         with open(filepath, "wb") as f:
             f.write(r.content)
+
+
+def clean_date(x: str) -> str:
+    x = x.strip()
+
+    # Remove trailing 'to'
+    x = re.sub(r"\s*to$", "", x, flags=re.IGNORECASE)
+
+    # Normalize spaces
+    x = re.sub(r"\s+", " ", x)
+
+    # Remove colons after weekday names
+    x = re.sub(r"([A-Za-z]+):", r"\1", x)
+
+    # Fix spaces inside weekday names (Tu esday -> Tuesday, Wednesda y -> Wednesday)
+    weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    for wd in weekdays:
+        x = re.sub(r"(?i)" + r"\s*".join(list(wd)), wd, x)
+
+    # ✅ Insert missing space between weekday and date
+    x = re.sub(r"(?i)(" + "|".join(weekdays) + r")(\d{1,2}\.\d{1,2}\.\d{4})", r"\1 \2", x)
+
+    # Fix spaces around dots in dates
+    x = re.sub(r"\s*\.\s*", ".", x)
+
+    # Fix digits split by spaces
+    x = re.sub(r"(\d)\s+(\d)", r"\1\2", x)
+
+    # Fix zero months like "16.00.2025" → assume "01"
+    x = re.sub(r"\.00\.", ".01.", x)
+
+    # Pad single-digit months/days with 0
+    x = re.sub(r"\.(\d)\.", r".0\1.", x)
+
+    # If multiple dates ("... & ...") → keep only first
+    if "&" in x:
+        x = x.split("&")[0].strip()
+
+    # Remove trailing dot
+    x = x.rstrip(".")
+
+    return x.strip()
+def clean_time_string(s):
+    if pd.isna(s):
+        return s
+    
+    s = s.strip()
+
+    # Normalize dash
+    s = re.sub(r"[–—-]", "-", s)
+
+    # Remove extra spaces around dots
+    s = re.sub(r"\s*\.\s*", ".", s)
+
+    # Fix AM/PM variants (remove periods fully)
+    s = re.sub(r"\bA\.?M\.?\b", "AM", s, flags=re.IGNORECASE)
+    s = re.sub(r"\bP\.?M\.?\b", "PM", s, flags=re.IGNORECASE)
+
+    # Sometimes "AM." or "PM." may remain → remove trailing dot
+    s = re.sub(r"(AM|PM)\.", r"\1", s)
+
+    # Collapse multiple spaces
+    s = re.sub(r"\s+", " ", s)
+
+    return s.strip()
+
+def clean_time(x: str) -> str:
+    if pd.isna(x):
+        return x
+    
+    x = x.strip()  # remove leading/trailing spaces
+    x = x.replace(":", ".")  # normalize ":" and "." as separators
+    
+    # remove stray characters like ': ' before time
+    x = re.sub(r"^[^0-9]+", "", x)
+    
+    # fix spaces in digits like "9.0 0" -> "9.00"
+    x = re.sub(r"(\d)\s+(\d)", r"\1\2", x)
+    
+    # normalize A.M./P.M. variations -> AM/PM
+    x = re.sub(r"\.?[Aa]\.?[Mm]\.?", "AM", x)
+    x = re.sub(r"\.?[Pp]\.?[Mm]\.?", "PM", x)
+    
+    # ensure single space before AM/PM
+    x = re.sub(r"\s*(AM|PM)$", r" \1", x)
+    
+    # normalize HH.MM to HH:MM
+    x = re.sub(r"(\d{1,2})\.(\d{1,2})", r"\1:\2", x)
+    
+    # pad minutes (e.g., 9:0 -> 9:00, 9:5 -> 9:05)
+    x = re.sub(r":(\d)(\s*[AP]M)", r":0\1\2", x)
+    
+    # pad hour if single digit (e.g., 9:30 -> 09:30)
+    if re.match(r"^\d:", x):
+        x = "0" + x
+    
