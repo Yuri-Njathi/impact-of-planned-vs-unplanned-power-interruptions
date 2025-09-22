@@ -16,8 +16,9 @@ def epra_data():# -> Union[pd.DataFrame, Any]:
     return pd.read_csv('impact-of-planned-vs-unplanned-power-interruptions/data/formatted_epra_data.csv')
 def census_kplc_data():    
     '''merged census_and_kplc_interruptions_data'''
-    return pd.read_csv('impact-of-planned-vs-unplanned-power-interruptions/data/census_and_kplc_interruptions_data.csv')
-
+    kplc_data = pd.read_csv('impact-of-planned-vs-unplanned-power-interruptions/data/census_and_kplc_interruptions_data.csv')
+    kplc_data['electrified_households'] = round(kplc_data['Conventional Households']*kplc_data['Mains Electricity']/100.0).astype(int)
+    return kplc_data
 def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
     """
     Function for getting OSM data
