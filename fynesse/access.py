@@ -91,7 +91,7 @@ def get_code_county_maps():
     # Make dictionary {County:Code}, keeping leading zeros
     county_to_code = dict(zip(df_code["County"].str.strip(),df_code["Code"].astype(str).str.zfill(3)))
     code_to_county = dict(zip(df_code["Code"].astype(str).str.zfill(3),df_code["County"].str.strip()))
-return county_to_code, code_to_county
+    return county_to_code, code_to_county
 
 def get_kenyan_map():
     counties_gdf = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin_levels.geojson")
