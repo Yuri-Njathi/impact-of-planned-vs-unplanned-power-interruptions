@@ -6,6 +6,11 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
+BASE_URL = "https://www.kplc.co.ke/customer-support"
+SAVE_DIR = "kplc_pdfs"
+
+os.makedirs(SAVE_DIR, exist_ok=True)
+
 def get_osm_datapoints(latitude, longitude, box_size_km=2, poi_tags=None):
     """
     Function for getting OSM data
