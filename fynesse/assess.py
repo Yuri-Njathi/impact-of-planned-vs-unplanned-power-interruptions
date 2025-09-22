@@ -26,7 +26,21 @@ How are missing values encoded, how are outliers encoded? What do columns repres
 makes rure they are correctly labeled. How is the data indexed. Crete visualisation
 routines to assess the data (e.g. in bokeh). Ensure that date formats are correct
 and correctly timezoned."""
-
+def plot_series(s,x,y,title,ylabel,xlabel):    
+    # Plot
+    plt.figure(figsize=(12,6))
+    sns.barplot(
+        data=s,#mean_electricity,
+        x=x,
+        y=y,#"Mains Electricity",
+        palette="viridis"
+    )
+    plt.xticks(rotation=45, ha='right')
+    plt.title(title)
+    plt.ylabel(ylabel)
+    plt.xlabel(xlabel)
+    plt.tight_layout()
+    plt.show()
 
 def data() -> Union[pd.DataFrame, Any]:
     """
