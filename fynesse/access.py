@@ -22,7 +22,10 @@ def census_kplc_data():
     kplc_data = pd.read_csv('impact-of-planned-vs-unplanned-power-interruptions/data/census_and_kplc_interruptions_data.csv')
     kplc_data['electrified_households'] = round(kplc_data['Conventional Households']*kplc_data['Mains Electricity']/100.0).astype(int)
     return kplc_data
-
+def kplc_data():# -> Union[pd.DataFrame, Any]:
+    '''returns epra_reliability_index_df '''
+    return pd.read_csv('impact-of-planned-vs-unplanned-power-interruptions/data/formatted_kplc_interruptions.csv')
+    
 def get_code_county_maps():
     # '''
     # return county_to_code dictionary and code_to_county
