@@ -102,7 +102,15 @@ def data() -> Union[pd.DataFrame, Any]:
         print(f"Error assessing data: {e}")
         return None
 
-
+def epra_data():# -> Union[pd.DataFrame, Any]:
+    '''returns epra_reliability_index_df '''
+    return pd.read_csv('impact-of-planned-vs-unplanned-power-interruptions/data/formatted_epra_data.csv')
+def census_kplc_data():    
+    '''merged census_and_kplc_interruptions_data'''
+    kplc_data = pd.read_csv('impact-of-planned-vs-unplanned-power-interruptions/data/census_and_kplc_interruptions_data.csv')
+    kplc_data['electrified_households'] = round(kplc_data['Conventional Households']*kplc_data['Mains Electricity']/100.0).astype(int)
+    return kplc_data
+    
 def query(data: Union[pd.DataFrame, Any]) -> str:
     """Request user input for some aspect of the data."""
     raise NotImplementedError
