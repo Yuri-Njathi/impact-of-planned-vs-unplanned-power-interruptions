@@ -44,7 +44,7 @@ def plot_series(s,x,y,title,ylabel,xlabel):
     plt.tight_layout()
     plt.show()
 
-def get_kenyan_map_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances):
+def get_kenyan_map_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances"):
     # counties = gpd.clip(gdf_counties, kenya_poly)
     # # Load CSV of counties
     # counties_csv = pd.read_csv("/kaggle/input/kenya-census-data/kenya_census_data.csv")
