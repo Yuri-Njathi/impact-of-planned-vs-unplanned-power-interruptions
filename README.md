@@ -2,7 +2,8 @@
 
 Access
 ------------------------------------------
-The data I will use is data from Kenya Power posted on x.com (twitter), they post as soon as an interruption is about to occur (images to be collected and placed in a Kenya-Power-interruptions-folder)
+The data I have used was sourced from KPLC's website as I couldn't access the data from Kenya Power posted on x.com (twitter), they post as soon as an interruption is about to occur (images to be collected and placed in a Kenya-Power-interruptions-folder). The unnecessaryy but web scraped pdfs were deleted then using PyPDF2 extracted the text. Using regex code was able to get the structured test into usable formats.
+
 
 EPRA's reports, Kenya's Census data and any credible transformer related data.
 
