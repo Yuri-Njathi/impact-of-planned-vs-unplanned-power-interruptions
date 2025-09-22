@@ -49,7 +49,7 @@ def get_kenyan_map_with_series(df,gdf_counties, gdf, kenya_poly,title="Interrupt
     # # Load CSV of counties
     # counties_csv = pd.read_csv("/kaggle/input/kenya-census-data/kenya_census_data.csv")
     # # Ensure county names are clean on both sides
-    # counties["name"] = counties["name"].str.strip().str.title()
+    df["county"] = df["county"].str.strip().str.title()
     # counties_csv.drop(columns = ['geometry'],inplace=True)
     # Merge CSV with OSMnx data
     counties_merged = gdf_counties.merge(df, left_on="name", right_on="county", how="outer")
