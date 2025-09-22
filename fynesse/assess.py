@@ -7,6 +7,7 @@ import pandas as pd
 import logging
 import yaml
 import os
+import geopandas as gpd
 
 from .config import *
 from . import access
@@ -42,6 +43,46 @@ def plot_series(s,x,y,title,ylabel,xlabel):
     plt.xlabel(xlabel)
     plt.tight_layout()
     plt.show()
+    
+def get_kenyan_map_with_electricity(gdf_counties, gdf, kenya_poly):
+    counties = gpd.clip(gdf_counties, kenya_poly)
+    # Load CSV of counties
+    counties_csv = pd.read_csv("/kaggle/input/kenya-census-data/kenya_census_data.csv")
+    # Ensure county names are clean on both sides
+    counties["name"] = counties["name"].str.strip().str.title()
+    counties_csv.drop(columns = ['geometry'],inplace=True)
+    # Merge CSV with OSMnx data
+    counties_merged = gdf_counties.merge(counties_csv, left_on="name", right_on="County", how="outer")
+    
+    ax = counties_merged.plot(column="Mains Electricity", legend=True,cmap="RdYlBu")
+    plt.title("Electricity Use by Kenyan County", fontsize=16)
+    #plt.axis("off")  # optional, to hide axes
+    plt.ylabel('Latitude')
+    plt.xlabel('Longitude')
+    plt.show()
+
+def get_kenyan_maps():
+    gdf_counties = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin_levels.geojson")
+    gdf = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin.gpkg", layer="country")
+    #Get Kenya polygon
+    kenya_poly = gdf.iloc[0].geometry
+
+    if "ISO3166-2" in gdf_counties.columns:
+        gdf_counties = gdf_counties[gdf_counties["ISO3166-2"].str.startswith("KE-", na=False)]
+    
+    # clean up labels
+    
+    # Use name:en (English) if available, else fall back to name or official_name.
+    
+    if "name:en" in gdf_counties.columns:
+        gdf_counties["label"] = (
+            gdf_counties["name:en"]
+            .fillna(gdf_counties["name"])
+            .fillna(gdf_counties["official_name"])
+        )
+    else:
+        gdf_counties["label"] = gdf_counties["name"]
+    return gdf_counties, gdf, kenya_poly
 
 def data() -> Union[pd.DataFrame, Any]:
     """
