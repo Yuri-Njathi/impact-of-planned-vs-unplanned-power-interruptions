@@ -43,7 +43,24 @@ def plot_series(s,x,y,title,ylabel,xlabel):
     plt.xlabel(xlabel)
     plt.tight_layout()
     plt.show()
+
+def get_kenyan_map_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances):
+    # counties = gpd.clip(gdf_counties, kenya_poly)
+    # # Load CSV of counties
+    # counties_csv = pd.read_csv("/kaggle/input/kenya-census-data/kenya_census_data.csv")
+    # # Ensure county names are clean on both sides
+    # counties["name"] = counties["name"].str.strip().str.title()
+    # counties_csv.drop(columns = ['geometry'],inplace=True)
+    # Merge CSV with OSMnx data
+    counties_merged = gdf_counties.merge(df, left_on="name", right_on="county", how="outer")
     
+    ax = counties_merged.plot(column=col, legend=True,cmap="RdYlBu")
+    plt.title(title, fontsize=16)
+    #plt.axis("off")  # optional, to hide axes
+    plt.ylabel('Latitude')
+    plt.xlabel('Longitude')
+    plt.show()
+
 def get_kenyan_map_with_electricity(gdf_counties, gdf, kenya_poly):
     counties = gpd.clip(gdf_counties, kenya_poly)
     # Load CSV of counties
