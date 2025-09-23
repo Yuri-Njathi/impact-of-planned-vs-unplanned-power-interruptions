@@ -22,6 +22,7 @@ Workflow Steps
 - Identify Kenya Power PDF notices of planned outages.
 
 2. Data Extraction
+3. - Extract map data [notebook](notebooks/planned-vs-unplanned-v2.ipynb)
 - Web-scraping the PDFs using Python + BeautifulSoup/requests [notebook](https://github.com/Yuri-Njathi/impact-of-planned-vs-unplanned-power-interruptions/blob/main/notebooks/download-kplc-interruptions-data.ipynb).
 - Text extraction from PDFs (parse dates, counties, outage times, and locations) [notebook](https://github.com/Yuri-Njathi/impact-of-planned-vs-unplanned-power-interruptions/blob/main/notebooks/read-save-kplc-interruptions-data.ipynb).
 
