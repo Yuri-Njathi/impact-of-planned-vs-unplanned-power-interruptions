@@ -1,4 +1,4 @@
-# Project Description
+# Probability of a blackout in Kenya
 
 Abstract
 ------------------------------------------
