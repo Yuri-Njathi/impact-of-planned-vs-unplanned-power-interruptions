@@ -45,17 +45,6 @@ Workflow Steps
 - Highlight high-risk counties.
 - Present findings in notebook and github documentation.
 
-flowchart TD
-
-A[Identify PDF sources] --> B[Web-scraping & PDF extraction]
-B --> C[Clean & structure data]
-C --> D[Merge with census data]
-D --> E[Integrate with SAIDI/SAIFI/CAIDI]
-E --> F[Analyze planned outages & probabilities]
-F --> G[Visualize maps & charts]
-G --> H[Insights & recommendations]
-
-
 The data I have used was sourced from KPLC's website as I couldn't access the data from Kenya Power posted on x.com (twitter), they post as soon as an interruption is about to occur (images to be collected and placed in a Kenya-Power-interruptions-folder). The unnecessaryy but web scraped pdfs were deleted then using PyPDF2 extracted the text. Using regex code was able to get the structured test into usable formats.
 
 
