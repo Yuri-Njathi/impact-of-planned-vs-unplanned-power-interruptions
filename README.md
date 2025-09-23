@@ -59,7 +59,7 @@ Using OSMnx try to plot Kenya's population per county and subcounty, Kenya's hou
 
 Address
 -----------------------------
-Try and predict the SAIDI  for July 2024 to present.
+Key insight that BESS companies should be aware of is that because the average duration of an interruption is 2 and a half hours therefore, battery backing up a conventional home for 2 and a half hours would probably cover such KPLC blackouts and can be sold to the KPLC to increase public private partnership.
 
 
 
