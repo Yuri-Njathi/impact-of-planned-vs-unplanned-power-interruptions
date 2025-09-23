@@ -20,16 +20,17 @@ Workflow Steps
 - Identify Kenya Power PDF notices of planned outages.
 
 2. Data Extraction
-- Web-scraping the PDFs using Python + BeautifulSoup/requests.
-- Text extraction from PDFs (parse dates, counties, outage times, and locations).
+- Web-scraping the PDFs using Python + BeautifulSoup/requests [notebook](https://github.com/Yuri-Njathi/impact-of-planned-vs-unplanned-power-interruptions/blob/main/notebooks/download-kplc-interruptions-data.ipynb).
+- Text extraction from PDFs (parse dates, counties, outage times, and locations) [notebook](https://github.com/Yuri-Njathi/impact-of-planned-vs-unplanned-power-interruptions/blob/main/notebooks/read-save-kplc-interruptions-data.ipynb).
 
 3. Data Cleaning & Structuring
 - Standardize date/time formats.
 - Normalize county names and merge duplicates, use county code to merge counties.
 - Structure into a table: `County` | `Date` | `Start Time` | `End Time` | `Locations`.
+  [notebook](https://github.com/Yuri-Njathi/impact-of-planned-vs-unplanned-power-interruptions/blob/main/notebooks/quality-check-kplc-interruptions-data.ipynb)
 
 4. Combine with Census Data
-- Merge county electrified household counts extracted from the 2019 Census data.
+- Merge county electrified household counts extracted from the 2019 Census data [notebook](https://github.com/Yuri-Njathi/impact-of-planned-vs-unplanned-power-interruptions/blob/main/notebooks/merge-census-data.ipynb).
 
 5. Combine with Reliability Data
 - Integrate national SAIDI, SAIFI, CAIDI indicators extracted from EPRA reports [23/24](https://www.epra.go.ke/sites/default/files/2024-10/EPRA%20Energy%20and%20Petroleum%20Statistics%20Report%20FY%202023-2024_2.pdf) and [24/25](https://www.epra.go.ke/bi-annual-energy-petroleum-statistics-report-20242025).
@@ -46,21 +47,6 @@ Workflow Steps
 - Present findings in notebook and github documentation.
 
 The data I have used was sourced from KPLC's website as I couldn't access the data from Kenya Power posted on x.com (twitter), they post as soon as an interruption is about to occur (images to be collected and placed in a Kenya-Power-interruptions-folder). The unnecessaryy but web scraped pdfs were deleted then using PyPDF2 extracted the text. Using regex code was able to get the structured test into usable formats.
-
-
-EPRA's reports, Kenya's Census data and any credible transformer related data.
-
-
-Much of the data is in image and pdf format and will thus need extraction either manually or using a tool of some kind.
-
-
-EPRA's reports are available and are where I will extract the SAIDI per month.
-
-
-The census data is in pdf format and I'm currently unsure how to extract it but will find my way.
-
-
-May use Kenya solar irradiation data
 
 
 Assess
