@@ -10,6 +10,8 @@ Key insights include: the average Kenyan household experiences 3.8 outages per y
 
 Understanding both the probability of outages and their household impact provides actionable guidance for Kenya Power, policymakers, and residents. By prioritizing investments and optimizing outage schedules, it is possible to reduce the disruption caused by blackouts, strengthen grid resilience, and help households better anticipate and manage electricity interruptions.
 
+<img width="873" height="1964" alt="Spider concept map (1)" src="https://github.com/user-attachments/assets/347c237e-077a-4d1f-94af-2c7199ae3a56" />
+
 
 
 Access
