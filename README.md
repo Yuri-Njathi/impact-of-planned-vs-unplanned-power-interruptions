@@ -2,6 +2,9 @@
 
 Abstract
 ------------------------------------------
+
+<img width="720" height="405" alt="probability-of-blackout_v3_720" src="https://github.com/user-attachments/assets/821f0fbb-8a15-4fe5-8181-2673e11ff732" />
+
 Reliable electricity is essential for Kenya’s economic growth, social well-being, and technological development. However, both planned and unplanned power interruptions continue to affect households and businesses nationwide. This mini project investigates which counties have the greatest impact on grid reliability during planned outages and how this information can help households plan around electricity disruptions.
 
 Using two years of scheduled maintenance blackout records from Kenya Power, collected via web-scraping and text extraction, combined with census data on electrified households and national reliability indicators (SAIDI, SAIFI, CAIDI) from the Energy and Petroleum Regulatory Authority, the study analyzed the frequency, duration, and geographic distribution of planned outages.
