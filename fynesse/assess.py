@@ -175,7 +175,7 @@ def get_kenyan_maps():
             gdf = ox.geocode_to_gdf("Kenya")  
             
             # 2. Counties (admin_level=4)
-            counties = ox.features_from_place("Kenya", {"admin_level": "4"}) 
+            gdf_counties = ox.features_from_place("Kenya", {"admin_level": "4"}) 
             #Get Kenya polygon
             kenya_poly = gdf.iloc[0].geometry
 
