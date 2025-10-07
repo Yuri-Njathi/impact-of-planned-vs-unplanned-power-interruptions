@@ -2,7 +2,7 @@
 
 Abstract
 ------------------------------------------
-<img width="2040" height="1158" alt="probability-of-blackout_v5" src="https://github.com/user-attachments/assets/c9511f85-d87e-4bf0-b4e0-e699d96469f2" />
+<img width="1280" height="720" alt="probability-of-blackout_v7" src="https://github.com/user-attachments/assets/28506868-6505-4292-a073-1756c450f035" />
 
 
 Reliable electricity is essential for Kenya’s economic growth, social well-being, and technological development. However, both planned and unplanned power interruptions continue to affect households and businesses nationwide. This mini project investigates which counties have the greatest impact on grid reliability during planned outages and how this information can help households plan around electricity disruptions.
@@ -13,7 +13,8 @@ Key insights include: the average Kenyan household experiences 3.8 outages per y
 
 Understanding both the probability of outages and their household impact provides actionable guidance for Kenya Power, policymakers, and residents. By prioritizing investments and optimizing outage schedules, it is possible to reduce the disruption caused by blackouts, strengthen grid resilience, and help households better anticipate and manage electricity interruptions.
 
-<img width="1658" height="3833" alt="Spider concept map_v3" src="https://github.com/user-attachments/assets/feab2444-31b5-4e2d-be39-1e84cb192e7a" />
+
+<img width="884" height="2044" alt="Spider concept map (3)" src="https://github.com/user-attachments/assets/75c0a374-b343-43f8-b5e3-877bfdfac88b" />
 
 
 
