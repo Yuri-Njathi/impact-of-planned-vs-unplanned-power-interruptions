@@ -65,7 +65,9 @@ def plot_interruptions_by_day_of_month(interruptions_per_day,duration_by_day):
     # Adjust layout for better spacing
     plt.tight_layout()
     plt.show()
-def plot_indices_with_duration_of_interruption():
+
+
+def plot_indices_with_duration_of_interruption(duration_of_interruptions_per_month,counties_merged):
     plt.figure(figsize=(12,6))
     sns.set_style("white")
     
