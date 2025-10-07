@@ -44,6 +44,28 @@ def plot_series(s,x,y,title,ylabel,xlabel):
     plt.tight_layout()
     plt.show()
 
+def plot_interruptions_by_day_of_month(interruptions_per_day,duration_by_day):
+    # A figure with two vertical subplots 
+    fig, axes = plt.subplots(2, 1, figsize=(12, 10), sharex=True)
+    
+    # --- First subplot: Number of Interruptions ---
+    sns.barplot(data=interruptions_per_day, x='day_of_month', y='interruptions', palette='viridis', ax=axes[0])
+    axes[0].set_title("Number of Interruptions by Day of Month")
+    axes[0].set_xlabel("")
+    axes[0].set_ylabel("Number of Interruptions")
+    axes[0].tick_params(axis='x', rotation=0)
+    
+    # --- Second subplot: Total Duration ---
+    sns.barplot(data=duration_by_day, x='day_of_month', y='duration_hours', palette='viridis', ax=axes[1])
+    axes[1].set_title("Total Interruption Duration by Day of Month")
+    axes[1].set_xlabel("Day of Month")
+    axes[1].set_ylabel("Total Duration (hours)")
+    axes[1].tick_params(axis='x', rotation=0)
+    
+    # Adjust layout for better spacing
+    plt.tight_layout()
+    plt.show()
+
 def get_kenyan_map_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances"):
     # counties = gpd.clip(gdf_counties, kenya_poly)
     # # Load CSV of counties
