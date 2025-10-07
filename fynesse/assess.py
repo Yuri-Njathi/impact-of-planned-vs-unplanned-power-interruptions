@@ -152,28 +152,61 @@ def get_kenyan_map_with_electricity(gdf_counties, gdf, kenya_poly):
     plt.xlabel('Longitude')
     plt.show()
 
-def get_kenyan_maps():
-    gdf_counties = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin_levels.geojson")
-    gdf = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin.gpkg", layer="country")
-    #Get Kenya polygon
-    kenya_poly = gdf.iloc[0].geometry
+import geopandas as gpd
+import osmnx as ox
 
-    if "ISO3166-2" in gdf_counties.columns:
-        gdf_counties = gdf_counties[gdf_counties["ISO3166-2"].str.startswith("KE-", na=False)]
+def get_kenyan_maps():
+    '''
+    returns county_maps, entire_country_map and country_polygon
+    '''
+    success = False
     
-    # clean up labels
+    try:
+        #try presaved locations
+        gdf_counties = gpd.read_file("/kaggle/input/kenya-map-data/keny_admin_levels.geojson")
+        gdf = gpd.read_file("/kaggle/input/kenya-map-data/keny_admin.gpkg", layer="country")
+        #Get Kenya polygon
+        kenya_poly = gdf.iloc[0].geometry
+
+        success = True
+    except:
+        try:
+            # 1. National boundary
+            gdf = ox.geocode_to_gdf("Kenya")  
+            
+            # 2. Counties (admin_level=4)
+            counties = ox.features_from_place("Kenya", {"admin_level": "4"}) 
+            #Get Kenya polygon
+            kenya_poly = gdf.iloc[0].geometry
+
+            success = True
+        except:
+            pass
     
-    # Use name:en (English) if available, else fall back to name or official_name.
-    
-    if "name:en" in gdf_counties.columns:
-        gdf_counties["label"] = (
-            gdf_counties["name:en"]
-            .fillna(gdf_counties["name"])
-            .fillna(gdf_counties["official_name"])
-        )
+    if success:
+        print("Obtaining Maps succeeded:", x)
     else:
-        gdf_counties["label"] = gdf_counties["name"]
-    return gdf_counties, gdf, kenya_poly
+        print("All methods for obtaining maps failed.")
+    try:
+        if "ISO3166-2" in gdf_counties.columns:
+            gdf_counties = gdf_counties[gdf_counties["ISO3166-2"].str.startswith("KE-", na=False)]
+        
+        # clean up labels
+        
+        # Use name:en (English) if available, else fall back to name or official_name.
+        
+        if "name:en" in gdf_counties.columns:
+            gdf_counties["label"] = (
+                gdf_counties["name:en"]
+                .fillna(gdf_counties["name"])
+                .fillna(gdf_counties["official_name"])
+            )
+        else:
+            gdf_counties["label"] = gdf_counties["name"]
+        return gdf_counties, gdf, kenya_poly
+    except:
+        print("Error formatting maps")
+
 
 def data() -> Union[pd.DataFrame, Any]:
     """
