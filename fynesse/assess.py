@@ -65,6 +65,56 @@ def plot_interruptions_by_day_of_month(interruptions_per_day,duration_by_day):
     # Adjust layout for better spacing
     plt.tight_layout()
     plt.show()
+def plot_indices_with_duration_of_interruption():
+    plt.figure(figsize=(12,6))
+    sns.set_style("white")
+    
+    # Main axis (barplot)
+    fig, ax1 = plt.subplots(figsize=(12,6))
+    sns.barplot(
+        data=duration_of_interruptions_per_month,
+        x="month_year", y="total_duration",
+        palette="viridis", ax=ax1
+    )
+    ax1.set_ylabel("Total Duration (hours)", fontsize=12)
+    ax1.set_xlabel("Month-Year", fontsize=12)
+    
+    # Secondary axis for SAIDI
+    ax2 = ax1.twinx()
+    sns.lineplot(data=counties_merged, x="month_year", y="SAIDI",marker="o", color="red", ax=ax2, label="SAIDI",legend=False)
+    ax2.set_ylabel("SAIDI-SAIFI-CAIDI", fontsize=12)
+    ax2.set_ylim(0, 12)
+    
+    # Third axis (shift outward for SAIFI)
+    ax3 = ax1.twinx()
+    #ax3.spines["right"].set_position(("outward", 50))  # shift right
+    sns.lineplot(data=counties_merged, x="month_year", y="SAIFI",marker="o", color="orange", ax=ax3, label="SAIFI",legend=False)
+    ax3.set_ylabel("", fontsize=12)
+    ax3.set_ylim(0, 12)
+    
+    # Fourth axis (shift outward for CAIDI)
+    ax4 = ax1.twinx()
+    #ax4.spines["right"].set_position(("outward", 100))  # shift further right
+    sns.lineplot(data=counties_merged, x="month_year", y="CAIDI",marker="o", color="blue", ax=ax4, label="CAIDI",legend=False)
+    ax4.set_ylabel("", fontsize=12)
+    ax4.set_ylim(0, 12)
+    
+    # Title
+    ax1.set_title("Total Planned Interruption Duration, SAIDI, SAIFI and CAIDI by Month", fontsize=14)
+    
+    # Rotate x labels
+    ax1.set_xticklabels(ax1.get_xticklabels(), rotation=45)
+    
+    # Combine legends
+    lines, labels = [], []
+    for ax in [ax2, ax3, ax4]:
+        line, label = ax.get_legend_handles_labels()
+        lines += line
+        labels += label
+    ax1.legend(lines, labels, loc="upper left")
+    
+    plt.tight_layout()
+    plt.show()
 
 def get_kenyan_map_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances"):
     # counties = gpd.clip(gdf_counties, kenya_poly)
