@@ -184,7 +184,7 @@ def get_kenyan_maps():
             pass
     
     if success:
-        print("Obtaining Maps succeeded:", x)
+        print("Obtaining Maps succeeded")
     else:
         print("All methods for obtaining maps failed.")
     try:
