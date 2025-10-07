@@ -163,8 +163,8 @@ def get_kenyan_maps():
     
     try:
         #try presaved locations
-        gdf_counties = gpd.read_file("/kaggle/input/kenya-map-data/keny_admin_levels.geojson")
-        gdf = gpd.read_file("/kaggle/input/kenya-map-data/keny_admin.gpkg", layer="country")
+        gdf_counties = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin_levels.geojson")
+        gdf = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin.gpkg", layer="country")
         #Get Kenya polygon
         kenya_poly = gdf.iloc[0].geometry
 
