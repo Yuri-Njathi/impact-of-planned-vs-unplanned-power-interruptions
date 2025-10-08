@@ -28,7 +28,29 @@ logger = logging.getLogger(__name__)
 
 # Or if it's a statistical analysis
 # import scipy.stats
-
+def plot_probability_of_blackout(counties_merged):
+    # Ensure month_year is a datetime type (for proper sorting)
+    counties_merged["month_year"] = pd.to_datetime(counties_merged["month_year"])
+    
+    # Sort by time (just in case)
+    counties_merged = counties_merged.sort_values("month_year")
+    
+    # Set the style
+    sns.set_style("whitegrid")
+    
+    # Plot
+    plt.figure(figsize=(10, 6))
+    sns.lineplot(data=counties_merged, x="month_year", y="Probability_of_Blackout", marker="o", linewidth=2.5)
+    
+    # Labeling
+    plt.title("Probability of Blackout per Month", fontsize=14, fontweight="bold")
+    plt.xlabel("Year-Month", fontsize=12)
+    plt.ylabel("Probability of Blackout", fontsize=12)
+    plt.grid(False)
+    # Beautify x-axis ticks (rotate and format)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
 
 def analyze_data(data: Union[pd.DataFrame, Any]) -> dict[str, Any]:
     """
