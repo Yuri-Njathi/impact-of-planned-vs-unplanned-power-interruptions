@@ -75,7 +75,7 @@ def plot_indices_with_duration_of_interruption(duration_of_interruptions_per_mon
     # Main axis (barplot)
     fig, ax1 = plt.subplots(figsize=(12,6))
     sns.barplot(
-        data=duration_of_interruptions_per_month,
+        data=counties_merged,#duration_of_interruptions_per_month,
         x="month_year", y="total_duration",
         palette="viridis", ax=ax1
     )
