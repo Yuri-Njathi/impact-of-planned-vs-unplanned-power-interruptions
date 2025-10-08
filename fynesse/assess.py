@@ -139,7 +139,7 @@ def get_kenyan_map_with_series(df,gdf_counties, gdf, kenya_poly,title="Interrupt
 def get_kenyan_map_with_electricity(gdf_counties, gdf, kenya_poly):
     counties = gpd.clip(gdf_counties, kenya_poly)
     # Load CSV of counties
-    counties_csv = pd.read_csv("/kaggle/input/kenya-census-data/kenya_census_data.csv")
+    counties_csv = pd.read_csv("impact-of-planned-vs-unplanned-power-interruptions/data/kenya_census_data.csv")
     # Ensure county names are clean on both sides
     counties["name"] = counties["name"].str.strip().str.title()
     counties_csv.drop(columns = ['geometry'],inplace=True)
