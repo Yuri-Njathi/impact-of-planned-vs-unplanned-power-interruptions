@@ -86,21 +86,21 @@ def plot_indices_with_duration_of_interruption(duration_of_interruptions_per_mon
     ax2 = ax1.twinx()
     sns.lineplot(data=counties_merged, x="month_year", y="SAIDI",marker="o", color="red", ax=ax2, label="SAIDI",legend=False)
     ax2.set_ylabel("SAIDI-SAIFI-CAIDI", fontsize=12)
-    ax2.set_ylim(0, 12)
+    ax2.set_ylim(0, 20)
     
     # Third axis (shift outward for SAIFI)
     ax3 = ax1.twinx()
     #ax3.spines["right"].set_position(("outward", 50))  # shift right
     sns.lineplot(data=counties_merged, x="month_year", y="SAIFI",marker="o", color="orange", ax=ax3, label="SAIFI",legend=False)
     ax3.set_ylabel("", fontsize=12)
-    ax3.set_ylim(0, 12)
+    ax3.set_ylim(0, 20)
     
     # Fourth axis (shift outward for CAIDI)
     ax4 = ax1.twinx()
     #ax4.spines["right"].set_position(("outward", 100))  # shift further right
     sns.lineplot(data=counties_merged, x="month_year", y="CAIDI",marker="o", color="blue", ax=ax4, label="CAIDI",legend=False)
     ax4.set_ylabel("", fontsize=12)
-    ax4.set_ylim(0, 12)
+    ax4.set_ylim(0, 20)
     
     # Title
     ax1.set_title("Total Planned Interruption Duration, SAIDI, SAIFI and CAIDI by Month", fontsize=14)
