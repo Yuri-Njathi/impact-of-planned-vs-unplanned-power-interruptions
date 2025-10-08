@@ -11,7 +11,8 @@ This module handles question addressing functionality including:
 from typing import Any, Union
 import pandas as pd
 import logging
-
+import matplotlib.pyplot as plt
+import seaborn as sns
 # Set up logging
 logger = logging.getLogger(__name__)
 
