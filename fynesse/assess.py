@@ -8,6 +8,7 @@ import logging
 import yaml
 import os
 import geopandas as gpd
+import osmnx as ox
 
 from .config import *
 from . import access
@@ -173,11 +174,12 @@ def get_kenyan_maps():
         try:
             # 1. National boundary
             gdf = ox.geocode_to_gdf("Kenya")  
-            
-            # 2. Counties (admin_level=4)
-            gdf_counties = ox.features_from_place("Kenya", {"admin_level": "4"}) 
             #Get Kenya polygon
             kenya_poly = gdf.iloc[0].geometry
+            tags = {"boundary": "administrative"}
+            # 2. Counties (admin_level=4)
+            gdf_counties = ox.features_from_polygon(kenya_poly, tags) #ox.features_from_place("Kenya", {"admin_level": "4"}) 
+            
 
             success = True
         except:
@@ -187,7 +189,6 @@ def get_kenyan_maps():
         print("Obtaining Maps succeeded")
     else:
         print("All methods for obtaining maps failed.")
-    try:
         if "ISO3166-2" in gdf_counties.columns:
             gdf_counties = gdf_counties[gdf_counties["ISO3166-2"].str.startswith("KE-", na=False)]
         
@@ -204,8 +205,6 @@ def get_kenyan_maps():
         else:
             gdf_counties["label"] = gdf_counties["name"]
         return gdf_counties, gdf, kenya_poly
-    except:
-        print("Error formatting maps")
 
 
 def data() -> Union[pd.DataFrame, Any]:
