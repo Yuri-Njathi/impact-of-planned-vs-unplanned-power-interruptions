@@ -189,22 +189,22 @@ def get_kenyan_maps():
         print("Obtaining Maps succeeded")
     else:
         print("All methods for obtaining maps failed.")
-        if "ISO3166-2" in gdf_counties.columns:
-            gdf_counties = gdf_counties[gdf_counties["ISO3166-2"].str.startswith("KE-", na=False)]
-        
-        # clean up labels
-        
-        # Use name:en (English) if available, else fall back to name or official_name.
-        
-        if "name:en" in gdf_counties.columns:
-            gdf_counties["label"] = (
-                gdf_counties["name:en"]
-                .fillna(gdf_counties["name"])
-                .fillna(gdf_counties["official_name"])
-            )
-        else:
-            gdf_counties["label"] = gdf_counties["name"]
-        return gdf_counties, gdf, kenya_poly
+    if "ISO3166-2" in gdf_counties.columns:
+        gdf_counties = gdf_counties[gdf_counties["ISO3166-2"].str.startswith("KE-", na=False)]
+    
+    # clean up labels
+    
+    # Use name:en (English) if available, else fall back to name or official_name.
+    
+    if "name:en" in gdf_counties.columns:
+        gdf_counties["label"] = (
+            gdf_counties["name:en"]
+            .fillna(gdf_counties["name"])
+            .fillna(gdf_counties["official_name"])
+        )
+    else:
+        gdf_counties["label"] = gdf_counties["name"]
+    return gdf_counties, gdf, kenya_poly
 
 
 def data() -> Union[pd.DataFrame, Any]:
