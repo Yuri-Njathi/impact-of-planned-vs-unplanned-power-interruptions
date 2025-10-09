@@ -113,7 +113,8 @@ def get_per_date_interruptions(interruptions_per_county_per_month,month_year):
 
 
 def get_kenyan_map_using_iso_code_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances",vmin=1,vmax=50):
-    county_code_iso_code, _  = get_iso_code_to_county_code(gdf_counties)
+    _, county_code_iso_code  = get_iso_code_to_county_code(gdf_counties)
+    #print(county_code_iso_code)
     #add county codes
     df['ISO3166-2'] = df['CODE'].map(county_code_iso_code)
     # # Ensure county names are clean on both sides
@@ -122,13 +123,14 @@ def get_kenyan_map_using_iso_code_with_series(df,gdf_counties, gdf, kenya_poly,t
     # Merge CSV with OSMnx data
     counties_merged = gdf_counties.merge(df, left_on="ISO3166-2", right_on="ISO3166-2", how="outer")
     # Base colormap
-    cmap = plt.cm.viridis#RdYlBu
+    cmap = plt.cm.viridis.copy()#RdYlBu
     # Convert to a ListedColormap to modify special colors
     cmap = cmap.copy()
     # Set color for zero (or masked/under/over values)
     # Example: light gray for zero
     cmap.set_bad(color='lightgray')  # for NaNs
     cmap.set_under(color='lightgray')  # for values below vmin (e.g. 0)
+    #print(counties_merged)
     ax = counties_merged.plot(column=col, legend=True,cmap=cmap,vmin=vmin,vmax=vmax)
     plt.title(title, fontsize=16)
     #plt.axis("off")  # optional, to hide axes
