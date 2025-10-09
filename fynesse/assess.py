@@ -67,6 +67,47 @@ def plot_interruptions_by_day_of_month(interruptions_per_day,duration_by_day):
     plt.tight_layout()
     plt.show()
 
+def get_per_date_interruptions(interruptions_per_county_per_month,month_year):
+    df_temp = interruptions_per_county_per_month[interruptions_per_county_per_month['month_year']==month_year]
+    print(df_temp)
+    # ensure consistent casing
+    df_temp["CODE"] = df_temp["CODE"].astype(str).str.zfill(3)#df_temp["CODE"]#.str.strip()
+    # get all possible counties and months
+    all_combinations = pd.MultiIndex.from_product(
+        [unique_counties_map.values(), df_temp["month_year"].unique()],
+        names=["CODE","month_year"]
+    )
+    # reindex to include all combinations
+    df_temp = (
+        df_temp.set_index(["CODE","month_year"])
+        .reindex(all_combinations, fill_value=0)
+        .reset_index()
+    )
+    # fill CODE using the dictionary
+    df_temp["county"] = df_temp["CODE"].map(unique_code_map)
+    return df_temp
+    
+ def get_entire_date_interruptions(df_temp):
+    # Ensure CODE is a zero-padded string
+    df_temp["CODE"] = df_temp["CODE"].astype(str).str.zfill(3)
+
+    # Get all possible county codes
+    all_codes = list(unique_counties_map.values())
+
+    # Reindex to ensure all counties are included
+    df_temp = (
+        df_temp.set_index("CODE")
+        .reindex(all_codes, fill_value=0)
+        .reset_index()
+    )
+
+    # Add county names back using the reverse mapping
+    df_temp["county"] = df_temp["CODE"].map(unique_code_map)
+
+    # Reorder columns for clarity
+    df_temp = df_temp[["county", "CODE", "num_instances"]]
+
+    return df_temp
 
 def plot_indices_with_duration_of_interruption(duration_of_interruptions_per_month, counties_merged):
     sns.set_style("white")
