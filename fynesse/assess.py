@@ -112,7 +112,7 @@ def get_per_date_interruptions(interruptions_per_county_per_month,month_year):
     return df_temp
 
 
-def get_kenyan_map_using_iso_code_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances",vmin=1,vmax=50):
+def get_kenyan_map_using_iso_code_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances",vmin=1,vmax=50,year_month=None):
     _, county_code_iso_code  = get_iso_code_to_county_code(gdf_counties)
     #print(county_code_iso_code)
     #add county codes
@@ -136,6 +136,9 @@ def get_kenyan_map_using_iso_code_with_series(df,gdf_counties, gdf, kenya_poly,t
     #plt.axis("off")  # optional, to hide axes
     plt.ylabel('Latitude')
     plt.xlabel('Longitude')
+    os.makedirs('maps', exist_ok=True)
+    # Save figure with high resolution and tight layout
+    plt.savefig(f"maps/kenya_map_{year_month}.png", dpi=300, bbox_inches="tight", pad_inches=0.1)
     plt.show()
 
 def get_entire_date_interruptions(df_temp):
