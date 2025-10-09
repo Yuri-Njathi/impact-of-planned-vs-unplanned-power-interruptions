@@ -45,7 +45,7 @@ def plot_series(s,x,y,title,ylabel,xlabel):
     plt.tight_layout()
     plt.show()
 
-def get_iso_code_to_county_code():
+def get_iso_code_to_county_code(gdf_counties):
     '''
     returns 2 dictionaries 
     dict1 : iso_code to county_code
