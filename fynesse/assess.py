@@ -86,7 +86,31 @@ def get_per_date_interruptions(interruptions_per_county_per_month,month_year):
     # fill CODE using the dictionary
     df_temp["county"] = df_temp["CODE"].map(unique_code_map)
     return df_temp
-    
+
+def get_kenyan_map_using_iso_code_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances",vmin=1,vmax=50):
+    #add county codes
+    df['ISO3166-2'] = df['CODE'].map(county_code_iso_code)
+    # # Ensure county names are clean on both sides
+    #df["county"] = df["county"].str.strip().str.title()
+    # counties_csv.drop(columns = ['geometry'],inplace=True)
+    # Merge CSV with OSMnx data
+    counties_merged = gdf_counties.merge(df, left_on="ISO3166-2", right_on="ISO3166-2", how="outer")
+    # Base colormap
+    cmap = plt.cm.viridis#RdYlBu
+    # Convert to a ListedColormap to modify special colors
+    cmap = cmap.copy()
+    # Set color for zero (or masked/under/over values)
+    # Example: light gray for zero
+    cmap.set_bad(color='lightgray')  # for NaNs
+    cmap.set_under(color='lightgray')  # for values below vmin (e.g. 0)
+    ax = counties_merged.plot(column=col, legend=True,cmap=cmap,vmin=vmin,vmax=vmax)
+    plt.title(title, fontsize=16)
+    #plt.axis("off")  # optional, to hide axes
+    plt.ylabel('Latitude')
+    plt.xlabel('Longitude')
+    plt.show()
+
+
  def get_entire_date_interruptions(df_temp):
     # Ensure CODE is a zero-padded string
     df_temp["CODE"] = df_temp["CODE"].astype(str).str.zfill(3)
@@ -253,9 +277,6 @@ def get_kenyan_map_with_electricity(gdf_counties, gdf, kenya_poly):
     plt.ylabel('Latitude')
     plt.xlabel('Longitude')
     plt.show()
-
-import geopandas as gpd
-import osmnx as ox
 
 def get_kenyan_maps():
     '''
