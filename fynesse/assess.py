@@ -110,8 +110,7 @@ def get_kenyan_map_using_iso_code_with_series(df,gdf_counties, gdf, kenya_poly,t
     plt.xlabel('Longitude')
     plt.show()
 
-
- def get_entire_date_interruptions(df_temp):
+def get_entire_date_interruptions(df_temp):
     # Ensure CODE is a zero-padded string
     df_temp["CODE"] = df_temp["CODE"].astype(str).str.zfill(3)
 
