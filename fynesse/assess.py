@@ -45,6 +45,30 @@ def plot_series(s,x,y,title,ylabel,xlabel):
     plt.tight_layout()
     plt.show()
 
+def get_iso_code_to_county_code():
+    '''
+    returns 2 dictionaries 
+    dict1 : iso_code to county_code
+    dict2 : county_code to iso_code
+    '''
+    iso_code_county_name = {}
+    gdf_unique_counties = ['Kisii', 'Narok', 'Homa Bay', 'Migori', 'Kajiado', 'Kisumu','Nyamira', 'Busia', 'Vihiga', 'Machakos', 'Makueni', 'Nairobi','Baringo', 'Bungoma', 'Embu', 'Garissa', 'Isiolo', 'Kiambu','Kilifi', 'Kirinyaga', 'Kitui', 'Kwale', 'Laikipia', 'Lamu','Marsabit', 'Meru', 'Mombasa', 'Nandi', 'Nyandarua', 'Nyeri','Samburu', 'Taita Taveta', 'Tana River', 'Tharaka-Nithi','Turkana', 'Uasin Gishu', 'Murang`a', 'West Pokot','Elgeyo-Marakwet', 'Bomet', 'Nakuru', 'Kakamega', 'Siaya','Mandera', 'Kericho', 'Wajir', 'Trans Nzoia']
+    for code in gdf_unique_counties: #gdf_counties['ISO3166-2'].unique():
+        #print(list(gdf_counties[gdf_counties['ISO3166-2'] == code]['name'])[0])
+        iso_code_county_name[code] = list(gdf_counties[gdf_counties['ISO3166-2'] == code]['name'])[0]
+        #Get ISO_code to county code name
+        iso_code_county_code = {}
+        county_code_iso_code = {} 
+    for key in iso_code_county_name.keys():
+        name = iso_code_county_name[key]
+        #print(name,key,unique_counties_map[name])
+        unique_counties_map,unique_code_map = access.get_code_county_maps()
+        len(unique_counties_map.keys())
+        iso_code_county_code[key] = unique_counties_map[name]
+        county_code_iso_code[unique_counties_map[name]] = key 
+        
+    return iso_code_county_code,county_code_iso_code
+
 def plot_interruptions_by_day_of_month(interruptions_per_day,duration_by_day):
     # A figure with two vertical subplots 
     fig, axes = plt.subplots(2, 1, figsize=(12, 10), sharex=True)
@@ -88,6 +112,7 @@ def get_per_date_interruptions(interruptions_per_county_per_month,month_year):
     return df_temp
 
 def get_kenyan_map_using_iso_code_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances",vmin=1,vmax=50):
+    county_code_iso_code, _  = assess.get_iso_code_to_county_code()
     #add county codes
     df['ISO3166-2'] = df['CODE'].map(county_code_iso_code)
     # # Ensure county names are clean on both sides
