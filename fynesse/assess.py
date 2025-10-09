@@ -53,7 +53,7 @@ def get_iso_code_to_county_code(gdf_counties):
     '''
     iso_code_county_name = {}
     gdf_unique_counties = ['Kisii', 'Narok', 'Homa Bay', 'Migori', 'Kajiado', 'Kisumu','Nyamira', 'Busia', 'Vihiga', 'Machakos', 'Makueni', 'Nairobi','Baringo', 'Bungoma', 'Embu', 'Garissa', 'Isiolo', 'Kiambu','Kilifi', 'Kirinyaga', 'Kitui', 'Kwale', 'Laikipia', 'Lamu','Marsabit', 'Meru', 'Mombasa', 'Nandi', 'Nyandarua', 'Nyeri','Samburu', 'Taita Taveta', 'Tana River', 'Tharaka-Nithi','Turkana', 'Uasin Gishu', 'Murang`a', 'West Pokot','Elgeyo-Marakwet', 'Bomet', 'Nakuru', 'Kakamega', 'Siaya','Mandera', 'Kericho', 'Wajir', 'Trans Nzoia']
-    for code in gdf_unique_counties: #gdf_counties['ISO3166-2'].unique():
+    for code in gdf_counties['ISO3166-2'].unique():
         #print(list(gdf_counties[gdf_counties['ISO3166-2'] == code]['name'])[0])
         iso_code_county_name[code] = list(gdf_counties[gdf_counties['ISO3166-2'] == code]['name'])[0]
         #Get ISO_code to county code name
