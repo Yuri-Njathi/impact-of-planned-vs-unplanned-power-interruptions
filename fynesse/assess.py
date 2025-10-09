@@ -205,7 +205,7 @@ def get_kenyan_map_with_electricity(gdf_counties, gdf, kenya_poly):
     counties_csv.drop(columns = ['geometry'],inplace=True)
     # Merge CSV with OSMnx data
     counties_merged = gdf_counties.merge(counties_csv, left_on="name", right_on="County", how="outer")
-    
+    print(counties_merged["name"].unique(),'\n',counties_merged["County"].unique())
     ax = counties_merged.plot(column="Mains Electricity", legend=True,cmap="RdYlBu")
     plt.title("Electricity Use by Kenyan Counties", fontsize=16)
     #plt.axis("off")  # optional, to hide axes
