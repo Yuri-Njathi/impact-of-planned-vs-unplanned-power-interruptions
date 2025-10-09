@@ -90,11 +90,10 @@ def plot_interruptions_by_day_of_month(interruptions_per_day,duration_by_day):
     # Adjust layout for better spacing
     plt.tight_layout()
     plt.show()
-
 def get_per_date_interruptions(interruptions_per_county_per_month,month_year):
     unique_counties_map,unique_code_map = access.get_code_county_maps()
     df_temp = interruptions_per_county_per_month[interruptions_per_county_per_month['month_year']==month_year]
-    #print(df_temp)
+    print(df_temp)
     # ensure consistent casing
     df_temp["CODE"] = df_temp["CODE"].astype(str).str.zfill(3)#df_temp["CODE"]#.str.strip()
     # get all possible counties and months
@@ -111,6 +110,7 @@ def get_per_date_interruptions(interruptions_per_county_per_month,month_year):
     # fill CODE using the dictionary
     df_temp["county"] = df_temp["CODE"].map(unique_code_map)
     return df_temp
+
 
 def get_kenyan_map_using_iso_code_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances",vmin=1,vmax=50):
     county_code_iso_code, _  = get_iso_code_to_county_code(gdf_counties)
