@@ -112,7 +112,7 @@ def get_per_date_interruptions(interruptions_per_county_per_month,month_year):
     return df_temp
 
 def get_kenyan_map_using_iso_code_with_series(df,gdf_counties, gdf, kenya_poly,title="Interruptions per County",col="num_instances",vmin=1,vmax=50):
-    county_code_iso_code, _  = get_iso_code_to_county_code()
+    county_code_iso_code, _  = get_iso_code_to_county_code(gdf_counties)
     #add county codes
     df['ISO3166-2'] = df['CODE'].map(county_code_iso_code)
     # # Ensure county names are clean on both sides
