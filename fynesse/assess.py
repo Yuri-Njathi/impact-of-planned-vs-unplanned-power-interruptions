@@ -69,7 +69,7 @@ def plot_interruptions_by_day_of_month(interruptions_per_day,duration_by_day):
 
 def get_per_date_interruptions(interruptions_per_county_per_month,month_year):
     df_temp = interruptions_per_county_per_month[interruptions_per_county_per_month['month_year']==month_year]
-    print(df_temp)
+    #print(df_temp)
     # ensure consistent casing
     df_temp["CODE"] = df_temp["CODE"].astype(str).str.zfill(3)#df_temp["CODE"]#.str.strip()
     # get all possible counties and months
