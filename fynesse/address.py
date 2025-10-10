@@ -30,18 +30,20 @@ logger = logging.getLogger(__name__)
 # Or if it's a statistical analysis
 # import scipy.stats
 def plot_probability_of_blackout(counties_merged):
-    # Ensure month_year is a datetime type (for proper sorting)
-    counties_merged["month_year"] = pd.to_datetime(counties_merged["month_year"])
-    
     # Sort by time (just in case)
     counties_merged = counties_merged.sort_values("month_year")
-    
+    # Ensure month_year is a datetime type (for proper sorting)
+    counties_merged["month_year"] = pd.to_datetime(counties_merged["month_year"])
+    # Convert month_year to string for plotting (avoids datetime issues)
+    counties_merged["month_year"] = pd.to_datetime(counties_merged["month_year"], format="%Y-%m")
+    counties_merged["month_year_str"] = counties_merged["month_year"].dt.strftime("%Y-%m")
+
     # Set the style
     sns.set_style("whitegrid")
     
     # Plot
-    fig, ax1 = plt.figure(figsize=(10, 6))
-    sns.lineplot(data=counties_merged, x="month_year", y="Probability_of_Blackout", marker="o", linewidth=2.5,ax=ax1)
+    fig, ax1 = plt.subplots(figsize=(10, 6))
+    sns.lineplot(data=counties_merged, x="month_year_str", y="Probability_of_Blackout", marker="o", linewidth=2.5,ax=ax1)
     # --- Add blackout month markers ---
     blackout_months = ["2023-03", "2023-08", "2023-11", "2024-05", "2024-09", "2024-12"]
     
@@ -56,7 +58,7 @@ def plot_probability_of_blackout(counties_merged):
             )
             ax1.text(
                 month,
-                ax1.get_ylim()[1]*0.7,
+                ax1.get_ylim()[1]*0.99,
                 "Nationwide\nBlackout",
                 rotation=45,
                 verticalalignment="top",
