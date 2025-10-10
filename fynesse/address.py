@@ -40,9 +40,31 @@ def plot_probability_of_blackout(counties_merged):
     sns.set_style("whitegrid")
     
     # Plot
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(data=counties_merged, x="month_year", y="Probability_of_Blackout", marker="o", linewidth=2.5)
+    fig, ax1 = plt.figure(figsize=(10, 6))
+    sns.lineplot(data=counties_merged, x="month_year", y="Probability_of_Blackout", marker="o", linewidth=2.5,ax=ax1)
+    # --- Add blackout month markers ---
+    blackout_months = ["2023-03", "2023-08", "2023-11", "2024-05", "2024-09", "2024-12"]
     
+    for month in blackout_months:
+        if month in counties_merged["month_year_str"].values:
+            ax1.axvline(
+                x=month,
+                color="black",
+                linestyle="--",
+                linewidth=1.5,
+                alpha=0.7
+            )
+            ax1.text(
+                month,
+                ax1.get_ylim()[1]*0.7,
+                "Nationwide\nBlackout",
+                rotation=45,
+                verticalalignment="top",
+                horizontalalignment="center",
+                color="black",
+                fontsize=8,
+                fontweight="bold"
+            )
     # Labeling
     plt.title("Probability of Blackout per Month", fontsize=14, fontweight="bold")
     plt.xlabel("Year-Month", fontsize=12)
