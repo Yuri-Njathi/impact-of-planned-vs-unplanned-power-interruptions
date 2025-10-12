@@ -231,7 +231,7 @@ def plot_indices_with_duration_of_interruption(duration_of_interruptions_per_mon
     ax4.set_ylim(0, 20)
     
     # --- Add blackout month markers ---
-    blackout_months = ["2023-03", "2023-08", "2023-11", "2024-05", "2024-09", "2024-12"]
+    blackout_months = ["2023-03", "2023-08", "2023-11","2023-12", "2024-05", "2024-09", "2024-12"]
     
     for month in blackout_months:
         if month in counties_merged["month_year_str"].values:
