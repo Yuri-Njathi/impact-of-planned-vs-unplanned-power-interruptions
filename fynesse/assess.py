@@ -329,8 +329,8 @@ def get_kenyan_maps():
         except:
             print("Loading maps from kaggle unsuccessfull ❌")
             try:
-                path1 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin_levels.geojson",repo_type="dataset")
-                path2 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin.gpkg",repo_type="dataset")
+                path1 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin_levels.geojson",repo_type="dataset",token=None)
+                path2 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin.gpkg",repo_type="dataset",token=None)
                 print(f"Path 1 : {path1} \nPath 2 : {path2}")
                 #try presaved locations
                 gdf_counties = gpd.read_file(path1)
