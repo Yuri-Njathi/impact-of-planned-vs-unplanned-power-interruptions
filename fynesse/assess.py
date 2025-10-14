@@ -317,6 +317,7 @@ def get_kenyan_maps():
     success = False
     
     try:
+        #try presaved locations -> kaggle, huggingface and google bucket
         try:
             #try presaved locations
             gdf_counties = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin_levels.geojson")
