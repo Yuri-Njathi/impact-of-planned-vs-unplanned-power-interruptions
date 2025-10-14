@@ -9,9 +9,10 @@ import yaml
 import os
 import geopandas as gpd
 import osmnx as ox
-
+from huggingface_hub import hf_hub_download
 from .config import *
 from . import access
+import urllib.request
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -327,9 +328,8 @@ def get_kenyan_maps():
         except:
             print("Loading maps from kaggle unsuccessfull")
             try:
-                from huggingface_hub import hf_hub_download
-                path1 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin_levels.geojson")
-                path2 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin.gpkg")
+                path1 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin_levels.geojson",repo_type="dataset")
+                path2 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin.gpkg",repo_type="dataset")
                 print(f"Path 1 : {path1} \nPath 2 : {path2}")
                 #try presaved locations
                 gdf_counties = gpd.read_file(path1)
@@ -340,6 +340,23 @@ def get_kenyan_maps():
                 success = True
             except:
                 print("Loading maps from huggingface unsuccessfull")
+                try:
+                    url1 = "https://storage.googleapis.com/kenya-open-street-maps/kenya_admin_levels.geojson"
+                    url2 = "https://storage.googleapis.com/kenya-open-street-maps/kenya_admin.gpkg"
+                    output1 = "kenya_admin_levels.geojson"
+                    output2 = "kenya_admin.gpkg"
+                    urllib.request.urlretrieve(url1, output1)
+                    urllib.request.urlretrieve(url2, output2)
+                    print("✅ Files downloaded:", output1,output2)
+                    #try presaved locations
+                    gdf_counties = gpd.read_file(output1)
+                    gdf = gpd.read_file(output2, layer="country")
+                    #Get Kenya polygon
+                    kenya_poly = gdf.iloc[0].geometry
+                
+                    success = True
+                except:
+                    print("Loading maps from Google Bucket unsuccessful")
     except:
         try:
             # 1. National boundary
