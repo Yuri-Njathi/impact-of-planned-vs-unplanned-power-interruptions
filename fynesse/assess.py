@@ -325,8 +325,9 @@ def get_kenyan_maps():
             kenya_poly = gdf.iloc[0].geometry
     
             success = True
+            print("Loading maps from kaggle successfull ✅")
         except:
-            print("Loading maps from kaggle unsuccessfull")
+            print("Loading maps from kaggle unsuccessfull ❌")
             try:
                 path1 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin_levels.geojson",repo_type="dataset")
                 path2 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin.gpkg",repo_type="dataset")
@@ -338,8 +339,9 @@ def get_kenyan_maps():
                 kenya_poly = gdf.iloc[0].geometry
             
                 success = True
+                print("Loading maps from huggingface successfull ✅")
             except:
-                print("Loading maps from huggingface unsuccessfull")
+                print("Loading maps from huggingface unsuccessfull ❌")
                 try:
                     url1 = "https://storage.googleapis.com/kenya-open-street-maps/kenya_admin_levels.geojson"
                     url2 = "https://storage.googleapis.com/kenya-open-street-maps/kenya_admin.gpkg"
@@ -355,8 +357,9 @@ def get_kenyan_maps():
                     kenya_poly = gdf.iloc[0].geometry
                 
                     success = True
+                    print("Loading maps from Google Bucket successful ✅")
                 except:
-                    print("Loading maps from Google Bucket unsuccessful")
+                    print("Loading maps from Google Bucket unsuccessful ❌")
     except:
         try:
             # 1. National boundary
@@ -375,7 +378,7 @@ def get_kenyan_maps():
     if success:
         print("Obtaining Maps succeeded")
     else:
-        print("All methods for obtaining maps failed.")
+        print("All methods for obtaining maps failed. ❌")
     if "ISO3166-2" in gdf_counties.columns:
         gdf_counties = gdf_counties[gdf_counties["ISO3166-2"].str.startswith("KE-", na=False)]
     
