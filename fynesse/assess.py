@@ -316,13 +316,30 @@ def get_kenyan_maps():
     success = False
     
     try:
-        #try presaved locations
-        gdf_counties = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin_levels.geojson")
-        gdf = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin.gpkg", layer="country")
-        #Get Kenya polygon
-        kenya_poly = gdf.iloc[0].geometry
-
-        success = True
+        try:
+            #try presaved locations
+            gdf_counties = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin_levels.geojson")
+            gdf = gpd.read_file("/kaggle/input/kenya-map-data/kenya_admin.gpkg", layer="country")
+            #Get Kenya polygon
+            kenya_poly = gdf.iloc[0].geometry
+    
+            success = True
+        except:
+            print("Loading maps from kaggle unsuccessfull")
+            try:
+                from huggingface_hub import hf_hub_download
+                path1 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin_levels.geojson")
+                path2 = hf_hub_download(repo_id="YuriNjathi/kenya-open-street-maps", filename="kenya_admin.gpkg")
+                print(f"Path 1 : {path1} \nPath 2 : {path2}")
+                #try presaved locations
+                gdf_counties = gpd.read_file(path1)
+                gdf = gpd.read_file(path2, layer="country")
+                #Get Kenya polygon
+                kenya_poly = gdf.iloc[0].geometry
+            
+                success = True
+            except:
+                print("Loading maps from huggingface unsuccessfull")
     except:
         try:
             # 1. National boundary
